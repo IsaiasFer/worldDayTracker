@@ -24,19 +24,28 @@ export const getMidnightLongitude = (date: Date): number => {
   return longitude;
 };
 
+// Helper to convert country code to emoji flag
+export const getFlagEmoji = (countryCode: string) => {
+  const codePoints = countryCode
+    .toUpperCase()
+    .split('')
+    .map(char => 127397 + char.charCodeAt(0));
+  return String.fromCodePoint(...codePoints);
+};
+
 export const getCountriesChangingDay = (): CountryTimeInfo[] => {
   // Hardcoded selection of representative countries for the stats panel
   const countries = [
-    { name: "Japan", flag: "🇯🇵", timezone: "Asia/Tokyo" },
+    { name: "Japón", flag: "🇯🇵", timezone: "Asia/Tokyo" },
     { name: "Australia", flag: "🇦🇺", timezone: "Australia/Sydney" },
-    { name: "Germany", flag: "🇩🇪", timezone: "Europe/Berlin" },
-    { name: "United Kingdom", flag: "🇬🇧", timezone: "UTC" },
-    { name: "Brazil", flag: "🇧🇷", timezone: "America/Sao_Paulo" },
-    { name: "United States", flag: "🇺🇸", timezone: "America/New_York" },
+    { name: "Alemania", flag: "🇩🇪", timezone: "Europe/Berlin" },
+    { name: "Reino Unido", flag: "🇬🇧", timezone: "UTC" },
+    { name: "Brasil", flag: "🇧🇷", timezone: "America/Sao_Paulo" },
+    { name: "Estados Unidos", flag: "🇺🇸", timezone: "America/New_York" },
     { name: "China", flag: "🇨🇳", timezone: "Asia/Shanghai" },
     { name: "India", flag: "🇮🇳", timezone: "Asia/Kolkata" },
-    { name: "South Africa", flag: "🇿🇦", timezone: "Africa/Johannesburg" },
-    { name: "Mexico", flag: "🇲🇽", timezone: "America/Mexico_City" },
+    { name: "Sudáfrica", flag: "🇿🇦", timezone: "Africa/Johannesburg" },
+    { name: "México", flag: "🇲🇽", timezone: "America/Mexico_City" },
   ];
 
   const now = new Date();

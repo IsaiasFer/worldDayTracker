@@ -9,7 +9,8 @@ import {
   Sphere,
   Graticule,
 } from "react-simple-maps";
-import { getMidnightLongitude } from "@/lib/timeUtils";
+import { getMidnightLongitude, getFlagEmoji } from "@/lib/timeUtils";
+import { isoNumericToAlpha2 } from "@/lib/countryMapping";
 import ModeSwitch from "./ModeSwitch";
 import Tooltip from "./Tooltip";
 import { motion } from "framer-motion";
@@ -142,11 +143,13 @@ export default function WorldMap() {
                   }}
                   onMouseEnter={(e) => {
                     if (mode !== "country") return;
+                    console.log("Hover geo:", geo);
+                    const countryCode = isoNumericToAlpha2[geo.id as string];
+                    const flag = countryCode ? getFlagEmoji(countryCode) : "🏳️";
                     setTooltip({
                       content: (
                         <div style={{ textAlign: "center" }}>
-                          {/* We don't have real flags in simplified geojson, using a placeholder icon or just name */}
-                          <div style={{ fontSize: "1.2rem", marginBottom: "4px" }}>🏳️</div>
+                          <div style={{ fontSize: "1.2rem", marginBottom: "4px" }}>{flag}</div>
                           <div style={{ fontWeight: "bold", color: "#fff" }}>{geo.properties.name}</div>
                         </div>
                       ),
@@ -198,10 +201,10 @@ export default function WorldMap() {
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <div style={{ width: "40px", height: "4px", background: "var(--neon-pink)", borderRadius: "2px", boxShadow: "0 0 8px var(--neon-pink)" }} />
-          <span className="glow-text-pink" style={{ fontWeight: 600 }}>MIDNIGHT FRONT</span>
+          <span className="glow-text-pink" style={{ fontWeight: 600 }}>FRENTE DE MEDIANOCHE</span>
         </div>
         <div style={{ opacity: 0.8, color: "var(--neon-cyan)" }}>
-          Longitude: {midnightLon.toFixed(2)}°
+          Longitud: {midnightLon.toFixed(2)}°
         </div>
       </div>
     </div>

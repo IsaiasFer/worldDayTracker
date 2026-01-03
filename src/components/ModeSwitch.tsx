@@ -31,7 +31,7 @@ export default function ModeSwitch({ mode, setMode }: ModeSwitchProps) {
           transition: "color 0.3s"
         }}
       >
-        COUNTRIES
+        PAÍSES
       </button>
       <button
         onClick={() => setMode("timezone")}
@@ -48,7 +48,7 @@ export default function ModeSwitch({ mode, setMode }: ModeSwitchProps) {
           transition: "color 0.3s"
         }}
       >
-        TIMEZONES
+        ZONAS HORARIAS
       </button>
 
       {/* Animated pill background */}

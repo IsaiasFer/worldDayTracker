@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Calendar, AlertCircle, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getFlagEmoji } from "@/lib/timeUtils";
 
 interface Holiday {
   date: string;
@@ -36,6 +37,16 @@ export default function FestivitiesPanel() {
     fetchHolidays();
   }, []);
 
+  /* Mobile state */
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <>
       {/* Toggle Button for Mobile/Desktop flexibility */}
@@ -44,8 +55,8 @@ export default function FestivitiesPanel() {
         className="glass hover:glow-box-cyan"
         style={{
           position: "absolute",
-          top: "80px",
-          right: "20px",
+          top: isMobile ? "80px" : "100px",
+          right: isMobile ? "20px" : "370px",
           padding: "10px",
           borderRadius: "50%",
           color: "var(--neon-green)",
@@ -69,8 +80,8 @@ export default function FestivitiesPanel() {
             className="glass-card"
             style={{
               position: "absolute",
-              top: "80px",
-              right: "70px",
+              top: "100px",
+              right: "370px",
               width: "300px",
               maxHeight: "60vh",
               overflowY: "auto",
@@ -81,7 +92,7 @@ export default function FestivitiesPanel() {
             }}
           >
             <h3 className="glow-text-cyan" style={{ marginBottom: "16px", fontSize: "1.1rem", borderBottom: "1px solid var(--glass-border)", paddingBottom: "10px" }}>
-              Upcoming Global Holidays
+              Próximas Festividades Globales
             </h3>
 
             {loading ? (
@@ -90,7 +101,7 @@ export default function FestivitiesPanel() {
               </div>
             ) : error ? (
               <div style={{ color: "var(--danger)", display: "flex", alignItems: "center", gap: "8px" }}>
-                <AlertCircle size={16} /> Failed to load festivities
+                <AlertCircle size={16} /> Error al cargar festividades
               </div>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -105,7 +116,7 @@ export default function FestivitiesPanel() {
                     <div style={{ fontSize: "0.8rem", opacity: 0.7, fontStyle: "italic" }}>{h.localName}</div>
                     <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px", fontSize: "0.75rem", color: "var(--neon-cyan)" }}>
                       <span>{h.date}</span>
-                      <span style={{ fontWeight: 700 }}>{h.countryCode}</span>
+                      <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>{getFlagEmoji(h.countryCode)}</span>
                     </div>
                   </div>
                 ))}
@@ -113,7 +124,7 @@ export default function FestivitiesPanel() {
             )}
 
             <div style={{ marginTop: "15px", fontSize: "0.7rem", opacity: 0.5, textAlign: "center" }}>
-              Data provided by Nager.Date API
+              Datos provistos por Nager.Date API
             </div>
           </motion.div>
         )}

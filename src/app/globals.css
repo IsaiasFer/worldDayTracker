@@ -78,3 +78,71 @@ body {
   background: var(--neon-purple);
   border-radius: 10px;
 }
+
+/* Responsive Layout Utilities */
+.app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: var(--background);
+}
+
+.map-section {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.header-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 40px;
+  z-index: 100;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Mobile specific overrides */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+  
+  .header-container {
+    padding: 10px 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    background: linear-gradient(to bottom, rgba(3,0,20,0.9), transparent);
+  }
+
+  /* Hide detailed header info or resize on mobile */
+  .header-details {
+    display: none !important;
+  }
+
+  /* Adjust map controls */
+  .map-controls {
+    top: 100px !important;
+  }
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+  .desktop-only {
+    display: none;
+  }
+}

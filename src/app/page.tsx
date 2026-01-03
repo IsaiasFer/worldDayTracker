@@ -1,46 +1,38 @@
+"use client";
+
+import React from "react";
 import WorldMap from "@/components/WorldMap";
 import StatsPanel from "@/components/StatsPanel";
 import FestivitiesPanel from "@/components/FestivitiesPanel";
 import { Globe, Cpu } from "lucide-react";
 
 export default function Home() {
+  const [dateStr, setDateStr] = React.useState<string>("");
+
+  React.useEffect(() => {
+    setDateStr(new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase());
+  }, []);
+
   return (
-    <main style={{
-      display: "flex",
-      width: "100vw",
-      height: "100vh",
-      background: "var(--background)",
-      overflow: "hidden",
-      position: "relative"
-    }}>
+    <main className="app-container">
       {/* Header / Title */}
-      <div style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        padding: "20px 40px",
-        zIndex: 100,
-        pointerEvents: "none",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
+      {/* Header / Title */}
+      <div className="header-container">
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div className="glass glow-box-cyan" style={{ padding: "8px", borderRadius: "12px", pointerEvents: "auto", border: "1px solid var(--neon-cyan)" }}>
             <Globe color="var(--neon-cyan)" size={28} />
           </div>
           <div style={{ pointerEvents: "auto" }}>
             <h1 className="glow-text-cyan" style={{ fontSize: "1.5rem", fontWeight: 700, letterSpacing: "-1px", textTransform: "uppercase" }}>
-              World Day Tracker
+              RASTREADOR GLOBAL
             </h1>
             <p style={{ fontSize: "0.8rem", color: "var(--neon-purple)", fontWeight: 600, letterSpacing: "1px" }}>
-              // LIVE SYSTEM MONITORING //
+              // MONITOREO DEL SISTEMA //
             </p>
           </div>
         </div>
 
-        <div className="glass" style={{
+        <div className="glass header-details" style={{
           padding: "8px 16px",
           fontSize: "0.8rem",
           pointerEvents: "auto",
@@ -50,19 +42,20 @@ export default function Home() {
           boxShadow: "0 0 10px rgba(91, 33, 182, 0.3)"
         }}>
           <div>
-            <span style={{ opacity: 0.5 }}>DATE: </span>
-            <span style={{ color: "#fff" }}>{new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase()}</span>
+            <span style={{ opacity: 0.5 }}>FECHA: </span>
+            <span style={{ color: "#fff" }}>{dateStr}</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <span style={{ opacity: 0.5 }}>KERNEL: </span>
-            <span style={{ color: "var(--neon-green)", fontWeight: "bold" }}>ONLINE</span>
+            <span style={{ opacity: 0.5 }}>NÚCLEO: </span>
+            <span style={{ color: "var(--neon-green)", fontWeight: "bold" }}>EN LÍNEA</span>
             <Cpu size={14} color="var(--neon-green)" />
           </div>
         </div>
       </div>
 
       {/* Map Section */}
-      <div style={{ flex: 1, position: "relative" }}>
+      {/* Map Section */}
+      <div className="map-section">
         <WorldMap />
       </div>
 
